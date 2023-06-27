@@ -9,9 +9,7 @@ log/
 **/target/*
 
 transcript
-./labs/*/transcript
 **/transcript
-*transcript.*
 
 
 *.db

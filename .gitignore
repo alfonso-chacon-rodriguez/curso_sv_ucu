@@ -8,7 +8,7 @@ logs/
 log/
 **/target/*
 
-./transcript
+transcript
 *.db
 *.sdb
 # *.tcl

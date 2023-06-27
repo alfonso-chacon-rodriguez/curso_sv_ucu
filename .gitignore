@@ -8,7 +8,10 @@ logs/
 log/
 **/target/*
 
-.labs/*/transcript.*
+./labs/*/transcript
+**/transcript
+*transcript.*
+
 
 *.db
 *.sdb

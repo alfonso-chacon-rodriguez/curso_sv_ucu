@@ -3,7 +3,7 @@ worklib :
 
 compile :
 	vlog -sv  -work ./target/sim_static/work -l ./target/log/compile.log ./src/param_decoder.sv \
-	./src/param_mux_sol.sv ./src/mux_tb.sv
+	./src/param_mux.sv ./src/mux_tb.sv
 
 optimize :
 	vopt +acc -work ./target/sim_static/work mux_tb -o mux_tb_opt

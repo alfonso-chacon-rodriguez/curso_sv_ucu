@@ -1,10 +1,14 @@
-module counter_tb; 
+//THis code is adapted from ASIC-World's tutorial at
+//https://www.asic-world.com/verilog/art_testbench_writing3.html#Test_Case_3_-_Assert/De-assert_enable_and_reset_randomly.
+
+module counter_ud_tb; 
 
   parameter WIDTH = 5;
   logic clk, reset, enable; 
   logic [WIDTH-1:0] count; 
-    
-  counter #(.N(WIDTH)) DUT // Testing a 5-bits Up counter
+  logic [WIDTH-1:0] count_compare; 
+
+  counter_ud #(.N(WIDTH)) DUT // Testing a 5-bits Up counter
           (
   .clk    (clk), 
   .reset  (reset),
@@ -30,8 +34,8 @@ module counter_tb;
 
 // Monitor for signals 
   initial  begin
-    $display("\t\ttime,\tclk,\treset,\tenable,\tcount"); 
-    $monitor("%d,\t%b,\t%b,\t%b,\t%d",$time, clk,reset,enable,count); 
+    $display("\t\ttime,\tclk,\treset,\tenable,\tcount,\tcount_compare"); 
+    $monitor("%d,\t%b,\t%b,\t%b,\t%d,\t%d",$time, clk,reset,enable,count, count_compare); 
   end 
 
 // Event used to terminate simulation
@@ -41,9 +45,26 @@ module counter_tb;
     #5 $finish; 
   end 
 
+// What do you think is this part of the code doing?
+
+
+always @ (posedge clk, posedge reset) 
+if (reset == 1'b1)
+  count_compare <= 0; 
+else if ( enable == 1'b1) begin
+  count_compare <= count_compare + 1; 
+end
+
+always @ (posedge clk) 
+  if (count_compare != count) begin 
+    $display ("DUT Error at time %d", $time); 
+    $display (" Expected value %d, Got Value %d", count_compare, count); 
+    #5 -> terminate_sim; 
+  end 
+
 //  Event used to reset trigger
   event reset_trigger; 
-    event  reset_done_trigger; 
+  event  reset_done_trigger; 
     
     initial
         forever begin 
@@ -56,18 +77,22 @@ module counter_tb;
         end 
 
 // Main testing procedure (TEST_CASE)
-  initial
-
-    begin: TEST_CASE 
-    #10 -> reset_trigger;
+initial  //A random test of enable and reset
+  begin : TEST_CASE 
+    #10 -> reset_trigger; 
     @ (reset_done_trigger); 
-    @ (negedge clk); 
-    enable = 1; 
-    repeat (10) begin  //Counter advances 10 clocks
-        @ (negedge clk); 
-      end 
-    enable = 0;
-    #5 -> terminate_sim; 
-    end 
+    fork  // A fork clause separates processes and makes then concurrent 
+          // Caution: Fork is not a synthesizable construct
+      repeat (10) begin 
+         @ (negedge clk); 
+        enable = $random; 
+      end	
+      //repeat (10) begin 
+      //  @ (negedge clk); 
+      //  reset = $random; 
+      //end 
+    join 
+    #5  -> terminate_sim;
+  end 
 
-endmodule //Of the whole Testbench modile
+endmodule //Of the whole Testbench module

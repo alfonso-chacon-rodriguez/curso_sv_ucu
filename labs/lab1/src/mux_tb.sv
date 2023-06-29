@@ -9,7 +9,7 @@ logic [WORD_SIZE-1:0]     mux_in_sel; //A temporal variable to store the word we
 int errors;
 
 
-param_mux_sol #(.DEPTH(DEPTH), .WORD_SIZE(WORD_SIZE)) deco_u1 
+param_mux #(.DEPTH(DEPTH), .WORD_SIZE(WORD_SIZE)) deco_u1 
 (.i_select(select_in),    //  N-bit select input
  .i_input_signal(mux_in),  //  M-bit out 
  .o_out(mux_out)       //  Enable for the decoder

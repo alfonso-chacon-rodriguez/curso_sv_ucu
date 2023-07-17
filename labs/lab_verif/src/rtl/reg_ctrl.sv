@@ -17,17 +17,17 @@ module reg_ctrl
   # (
      parameter ADDR_WIDTH 	= 8,
      parameter DATA_WIDTH 	= 16,
-     parameter DEPTH 		= 256,
+     parameter DEPTH 		    = 256,
      parameter RESET_VAL  	= 16'h1234
   )
   ( input logic                     clk,
-  	input logic					    rstn,
+  	input logic					            rstn,
     input logic [ ADDR_WIDTH-1:0] 	addr,
-    input logic					    sel,
-  	input logic					     wr,
-    input logic [DATA_WIDTH-1:0] 	wdata,
+    input logic					            sel,
+  	input logic					            wr,
+    input logic [DATA_WIDTH-1:0] 	  wdata,
     output logic [DATA_WIDTH-1:0] 	rdata,
-    output logic        			ready);
+    output logic        			      ready);
 
   	// Some memory element to store data for each addr
   logic [DATA_WIDTH-1:0] ctrl [DEPTH];

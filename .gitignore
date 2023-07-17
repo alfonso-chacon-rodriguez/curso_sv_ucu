@@ -11,7 +11,8 @@ log/
 transcript
 **/transcript
 
-
+*.lst
+*.vcd
 *.db
 *.sdb
 # *.tcl

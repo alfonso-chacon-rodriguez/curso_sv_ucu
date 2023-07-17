@@ -2,19 +2,20 @@ worklib :
 	vlib ./target/sim_static/work
 
 compile :
-	vlog -sv  -work ./target/sim_static/work -l ./target/log/compile.log ./src/counter.sv ./src/counter_tb.sv
-
-foreign : foreign.c
-	gcc -I$(QUESTA_HOME)/include -shared -g -o foreign.so foreign.c
+	vlog -sv  -work ./target/sim_static/work -l ./target/log/compile.log \
+	./src/test/tb.sv
 
 optimize :
-	vopt +acc -work ./target/sim_static/work counter_tb -o counter_tb_opt
+	vopt +acc -work ./target/sim_static/work tb -o tb_opt
 
 sim :
-	vsim -c -do sim.do -work ./target/sim_static/work counter_tb_opt -wlf ./target/sim_static/counter_tb_opt.wlf
+	vsim -c -do sim.do -work ./target/sim_static/work tb_opt \
+	-wlf ./target/sim_static/tb_opt.wlf -logfile ./target/log/simulation.log
 
-all :
-	worklib compile foreign optimize sim
+all : setup_sim worklib compile optimize sim
+
+gui :
+	vsim -view ./target/sim_static/tb_opt.wlf
 
 clean :
 	rm -rf ./target

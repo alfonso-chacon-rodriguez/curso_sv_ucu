@@ -10,7 +10,7 @@ class reg_item;
   // capture transactions at DUT interface
   rand 	bit [7:0] 	addr;
   rand 	bit [15:0] 	wdata;
-  		bit [15:0] 	rdata;
+  		  bit [15:0] 	rdata;
   rand 	bit 		wr;
 
   // This function allows us to print contents of the data packet
@@ -142,7 +142,7 @@ endclass
 // components in it would be automatically connected and available for use
 // This is an environment without a generator.
 class env;
-  driver 			d0; 		// Driver to design
+  driver 			  d0; 		// Driver to design
   monitor 			m0; 		// Monitor from design
   scoreboard 		s0; 		// Scoreboard connected to monitor
   mailbox 			scb_mbx; 	// Top level mailbox for SCB <-> MON
@@ -167,7 +167,7 @@ class env;
 
     fork
     	s0.run();
-		d0.run();
+		  d0.run();
     	m0.run();
     join_any
   endtask
@@ -209,18 +209,6 @@ class test;
     drv_mbx.put(item);
   endtask
 endclass
-
-// The interface allows verification components to access DUT signals
-// using a virtual interface handle
-interface reg_if (input bit clk);
-  logic rstn;
-  logic [7:0] addr;
-  logic [15:0] wdata;
-  logic [15:0] rdata;
-  logic 		wr;
-  logic 		sel;
-  logic 		ready;
-endinterface
 
 
 

@@ -29,13 +29,13 @@ module RegFile (
 // For input/output decos
 // Determine the right indexing
 
-    wire [depth-1:0] InEn; // Wiring for selection of InData
-    wire [depth-1:0] OutEn; // Wiring for selection of OutData
+    wire [???] InEn; // Wiring for selection of InData
+    wire [???] OutEn; // Wiring for selection of OutData
 
 // Wiring for the RF's outputs
 // Determine the right indexing
 
-   wire [ws-1:0] RF_Q [depth-1:0]; // Wiring for data coming out of the RF
+   wire [???] RF_Q [???]; // Wiring for data coming out of the RF
 
 // First we need the decos for input/output
 // These decos get the address for reading and writing and generate the decoded
@@ -49,7 +49,7 @@ generic_deco_N_M  #($clog2(depth),depth) deco_In(.En(wr), .N(AddrWr), .M(InEn));
 
  //Output Deco
  // Wire the correct control signals
-generic_deco_N_M #($clog2(depth),depth) deco_Out(.En(rd),.N(AddrRd),.M(OutEn));
+generic_deco_N_M #($clog2(depth),depth) deco_Out(.En(??),.N(??),.M(??));
 
 //
 // RF instantiation (depth is the number of ws-bit sized FFs )
@@ -61,11 +61,11 @@ generic_deco_N_M #($clog2(depth),depth) deco_Out(.En(rd),.N(AddrRd),.M(OutEn));
 
 genvar i,j;
 generate
-	for (i=0; i< depth; i=i+1)
+	for (???)
 	begin:FFx_
-	   assign enable_in_ =(InEn[i]);
-      //assign FF_out_ =(RF_Q[i]);
-	   prll_d_en_reg #(ws) rf_ff_bank_(.clk(clk), .reset(reset),.wr_en(enable_in_),.D_in(DataIn), .D_out(RF_Q[i]));
+	   assign enable_in_ =???;
+  
+	   prll_d_en_reg #(ws) rf_ff_bank_(.clk(clk), .reset(reset),.wr_en(??),.D_in(??), .D_out(???));
    end
 
 endgenerate

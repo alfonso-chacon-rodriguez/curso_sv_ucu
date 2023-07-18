@@ -30,8 +30,8 @@ logic          data_out_en;       //If we enable pasing the data from the RF to 
 wire [ws-1:0] DataRd;  //RFs output to be registered
 
 // This is the memory bank, register file style. Wire accordingly.
-RegFile RF1(.DataIn(DataIn), .DataOut(DataRd), .clk(clk),
-            .reset(reset_fifo), .wr(wr_RF), .rd(rd_RF), .AddrWr(wp), .AddrRd(rp));
+RegFile RF1(.DataIn(???), .DataOut(???), .clk(???),
+            .reset(???), .wr(???), .rd(???), .AddrWr(???), .AddrRd(???));
 
 //FSM state register
 fifo_fsm_states_t state, next_state; // FSM's logic signals
@@ -41,13 +41,12 @@ fifo_state_bit_t state_bit;          //Active bit in the HotBit coding
 //State and output registers
 
 //Place here the State Register for the FSM
-always_ff @( posedge clk, posedge reset_fifo ) begin : StateRegister
-    if (reset_fifo)
-        state <= idle;
-    else 
-        state <= next_state;
- end //State register
-    
+??
+??
+??
+??
+??
+// Status register  
 
 // This registers pndng, full
 always_ff @( posedge clk, posedge reset_fifo ) begin : Pndng_full_Register
@@ -64,6 +63,8 @@ end
 //Output register
 always_ff @( posedge clk, posedge reset_fifo ) begin : OutputRegister
     if (reset_fifo) begin
+        pndng <= 1'b0;
+        full <= 1'b0;
         DataOut <= '0;
     end
     else if (data_out_en)

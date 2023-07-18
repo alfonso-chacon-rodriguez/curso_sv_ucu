@@ -235,7 +235,7 @@ endmodule
 ////////////////////////////////////////////////////////////////////////////////
 module generic_deco_N_M(En,N,M);
 parameter Size_input=3,
-		  Size_output=8; //N is the input size, M is the outputs
+		      Size_output=8; //N is the input size, M is the outputs
 			 				//We could have used log2M to define N, check later (ACR)
 
 	input   En; //Deco Enable

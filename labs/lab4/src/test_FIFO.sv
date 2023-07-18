@@ -26,8 +26,8 @@ fifosc FIFO1(.DataIn(DataIn), .DataOut(DataOut), .clk(clk),
 
 initial 
   begin
-    $dumpfile("./test_FIFO.vcd"); //In order to get the VCD dump from Icarus
-    $dumpvars(0,test_FIFO);
+    //$dumpfile("./test_FIFO.vcd"); //In order to get the VCD dump from Icarus
+    //$dumpvars(0,test_FIFO);
     push=0;
     pop=0;
     reset_fifo=0;

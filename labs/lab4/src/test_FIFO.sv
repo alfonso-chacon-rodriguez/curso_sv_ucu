@@ -1,6 +1,6 @@
 `timescale 1ns/100ps
 `include "bus_definitions.sv" //Compile the package
-
+`include "./fifosc.sv"
 // We're going to use some basic SV features, but not UVM still
 
 module test_FIFO;

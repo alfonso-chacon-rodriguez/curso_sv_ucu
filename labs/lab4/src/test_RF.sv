@@ -1,4 +1,7 @@
 `timescale 1ns/100ps
+
+`include "./RegFile.sv" 
+
 module test_RF;
 
     parameter ws= 4, depth=8, as=$clog2(depth);

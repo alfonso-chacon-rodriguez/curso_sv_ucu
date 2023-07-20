@@ -9,15 +9,15 @@ output logic yellow,
 output logic green)
 ;
 
-parameter enum logic [1:0] {S0 = 2'b00,
+typedef enum logic [1:0] {S0 = 2'b00,
                             S1 = 2'b01,
                             S2 = 2'b10,
-                            S3 = 2'b11;}
+                            S3 = 2'b11} state_vector;
 
 //state_vector current_state
-logic [1:0]  current_state, next_state;
+state_vector  current_state, next_state;
 
-logoc red, yellow, green;
+//logic red, yellow, green;
 
 /*------- Sequential Logic ----*/
 always_ff@(posedge clock or negedge reset)
@@ -35,7 +35,7 @@ begin
         S0: begin 
         //Stay in SO while there is no car
                 if (car) 
-                    next_state = S1
+                    next_state = S1;
                 else 
                     next_state = S0;
             end

@@ -1,3 +1,5 @@
+// Testbench solution for using interfaces both into the counter and the tb
+
 `timescale 1ns/1ps
 module cnt_tb;
    logic clk;
@@ -8,18 +10,11 @@ module cnt_tb;
   // with a clock -> here half_period = 10ns => 50 MHz
   always #10 clk = ~clk;
 
-// Instantiate the interface here
-  ?? //Interface is instantiated
+  cnt_if 	  cnt_if0 (clk); //Interface is instantiated
 
-// connect the counter here
- 
- ??  counter_ud  c0 ( 	.clk 		(??),
-                  	.rstn 		(??),
-                  	.load 		(??),
-                  	.load_en 	(??),
-                  	.down 		(??),
-                  	.rollover (??),
-                  	.count 		(??));
+  // Note that here we just have to pass the interface handle
+  // to the design instead of connecting each individual signal
+  counter_ud  c0 (cnt_if0);
 
   initial begin
     bit load_en, down;
@@ -30,14 +25,14 @@ module cnt_tb;
 
     // Initialize testbench variables
     clk = 0;
-    ?? = 0;
-    ?? = 0;
-    ?? = 0;
-    ?? = 0;
+    cnt_if0.rstn = 0;
+    cnt_if0.load_en = 0;
+    cnt_if0.load = 0;
+    cnt_if0.down = 0;
 
     // Drive design out of reset after 5 clocks
     repeat (5) @(posedge clk);
-      ?? = 1; // Drive stimulus -> repeat 5 times
+    cnt_if0.rstn = 1; // Drive stimulus -> repeat 5 times
     for (int i = 0; i < 5; i++) begin
 
       // Drive inputs after some random delay
@@ -48,9 +43,9 @@ module cnt_tb;
       std::randomize(load, load_en, down);
 
       // Assign tb values to interface signals
-      ??   = load;
-      ??  = load_en;
-      ??    = down;
+      cnt_if0.load    = load;
+      cnt_if0.load_en = load_en;
+      cnt_if0.down    = down;
     end
 
     // Wait for 5 clocks and finish simulation

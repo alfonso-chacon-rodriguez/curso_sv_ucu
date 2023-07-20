@@ -1,3 +1,4 @@
+// Testbench solution for using interfaces in the tb
 `timescale 1ns/1ps
 module cnt_tb;
    logic clk;
@@ -10,9 +11,13 @@ module cnt_tb;
 
   cnt_if 	  cnt_if0 (clk); //Interface is instantiated
 
-  // Note that here we just have to pass the interface handle
-  // to the design instead of connecting each individual signal
-  counter_ud  c0 (cnt_if0);
+  counter_ud  c0 ( 	.clk 		(cnt_if0.clk),
+                  	.rstn 		(cnt_if0.rstn),
+                  	.load 		(cnt_if0.load),
+                  	.load_en 	(cnt_if0.load_en),
+                  	.down 		(cnt_if0.down),
+                  	.rollover 	(cnt_if0.rollover),
+                  	.count 		(cnt_if0.count));
 
   initial begin
     bit load_en, down;

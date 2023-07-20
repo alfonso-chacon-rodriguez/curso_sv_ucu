@@ -26,7 +26,30 @@ always_ff@(posedge clock or negedge reset)
         else  
             current_state <= next_state;
 
-/* next state logic and output logic */
+// next state logic
+always_comb
+begin
+
+    //What would you need to add in order to check for a emergency input signal?
+    unique case (current_state) // Ensure a paralell case (no priority)
+        S0: begin 
+        //Stay in SO while there is no car
+                if (car) 
+                    next_state = S1
+                else 
+                    next_state = S0;
+            end
+        S1: begin
+                next_state = S2; //Stay on S1 for one clock
+            end
+        S2 : begin
+                next_state = S0; // Stay on S2 for one clock
+            end
+        default : next_state = S0;
+    endcase
+end
+
+// output state logic
 always_comb
 begin
     red    = 0; 
@@ -35,21 +58,17 @@ begin
     unique case (current_state) // Ensure a paralell case (no priority)
         S0: begin 
                 red = 1; //Red light at first, while there is no car
-                if (car) 
-                    next_state = S1
-                else 
-                    next_state = S0;
             end
         S1: begin
                 yellow     = 1;
-                next_state = S2; //Yellow stays on for one clock
             end
         S2 : begin
                 green      = 1;
-                next_state = S0; // Green stays for one clock
             end
-        default : next_state = S0;
+        default : red = 1;
     endcase
 end
+
+//What would you add in order to make the lights stay for several clocks, with a higher speed clock?
 
 endmodule

@@ -1,5 +1,14 @@
+`include "./traffic_light_controller.sv"
+
 module fsm_tb;
 
+logic  clock;
+logic  reset;
+logic  car;
+
+logic red; 
+logic yellow;
+logic green;
 // Define any parameters or variables you might need here in order to connect the FSM
 // Check the prior labs for examples
 
@@ -7,12 +16,12 @@ module fsm_tb;
 //Instantiate and connect the FSM serving as DUT
 // Check lab 1 for examples
 
-traffic_light_controller DUT (.clock(),
-                              .reset(),
-                              .car(),
-                              .red(), 
-                              .yellow(), 
-                              .green());
+traffic_light_controller DUT (.clock(clock),
+                              .reset(reset),
+                              .car(car),
+                              .red(red), 
+                              .yellow(yellow), 
+                              .green(green));
 
 //Provide initial value to input signals to DUT here 
   initial begin
@@ -27,12 +36,31 @@ traffic_light_controller DUT (.clock(),
     #5 clk = !clk;
 
 
+//You need something to monitor the inputs and outputs 
+
+  initial  begin
+    $display("\t\ttime,\tclock,\treset,\tcar,\tred,\t_yellow,\t_green"); 
+    $monitor("%d,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b",$time, clok,reset,car,red, yellow, green); 
+  end 
+
+
 //Main test
 initial begin
+  reset =0;
+  wait_task(5); //keeps the reset for 5 clocks
+  @negedge(clock) reset= 1; //See how stimulus signals are changed on the opposite clk edge
+  // This avoids race conditions
+  // Place here the testing sequence
+  // For now something very basic to start running the existing traffic light controller FSM
+  wait_task(2); //keeps the reset for 5 clocks
+  @negedge(clock) car= 1; //This should start the sequence on the next clock posedge
+  @negedge(clock) car= 0;
+  wait_task(4); //Wait 4 clocks, FSM should return to normal sate
 
-// Place here the testing commands
-// For now something very basic to start running the existing light controller
-// As soon as you get that running, proceed to modify it, 
+$finish;
+
+
+// As soon as you get the traffic_light_controller FSM running, proceed to modify it, 
 // in a different file and with a different module name, adding the required new functionality
 // Copy this tb into another one, to go from therr with the test of the new FSM
 // Add some reset and termination control as used in lab 2.
@@ -40,7 +68,8 @@ initial begin
 
 end //initial
 
-//We're going to use this very basic task to provide some random waiting
+//We're going to use this very basic task to provide some  waiting
+// How can you make this waiting random?
 
 //Procedure that waits <index> clock cycles 
 task wait_task (input integer index);

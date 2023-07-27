@@ -39,7 +39,7 @@ traffic_light_controller DUT (.clock(clock),
 //You need something to monitor the inputs and outputs 
 
   initial  begin
-    $display("\t\ttime,\tclock,\treset,\tcar,\tred,\t_yellow,\t_green"); 
+    $display("\t\ttime,\tclock,\treset,\tcar,\tred,\tyellow,\tgreen"); 
     $monitor("%d,\t%b,\t%b,\t%b,\t%b,\t%b,\t%b",$time, clock,reset,car,red,yellow,green); 
   end 
 
@@ -62,7 +62,7 @@ $finish;
 
 // As soon as you get the traffic_light_controller FSM running, proceed to modify it, 
 // in a different file and with a different module name, adding the required new functionality
-// Copy this tb into another one, to go from therr with the test of the new FSM
+// Copy this tb into another one, to go from there with the test of the new FSM
 // Add some reset and termination control as used in lab 2.
 // Try to see if you can add some randomness to the emergency input
 

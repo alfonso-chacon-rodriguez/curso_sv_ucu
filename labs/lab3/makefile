@@ -9,7 +9,7 @@ optimize :
 
 sim :
 	vsim -c -do sim.do -work ./target/sim_static/work fsm_tb_opt \
-	-wlf ./target/sim_static/counter_tb_opt.wlf -logfile ./target/log/simulation.log
+	-wlf ./target/sim_static/fsm_tb_opt.wlf -logfile ./target/log/simulation.log
 
 gui :
 	vsim -view ./target/sim_static/fsm_tb_opt.wlf

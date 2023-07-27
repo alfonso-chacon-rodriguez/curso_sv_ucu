@@ -6,7 +6,5 @@ add list -decimal *
 radix -symbolic
 #Run simulation
 run -all
-# output results
-write list counter.lst
 # quit the simulation
 quit -f

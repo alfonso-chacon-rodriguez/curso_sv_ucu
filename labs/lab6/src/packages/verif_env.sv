@@ -1,4 +1,3 @@
-//package verif_env_pkg
 
 //In order to avoid multiple definitions
 //`ifndef VERIF_ENV_DEF
@@ -148,27 +147,28 @@ class env;
   mailbox 			scb_mbx; 	// Top level mailbox for SCB <-> MON
   virtual reg_if 	vif; 		// Virtual interface handle
 
-  // Instantiate all testbench components
+  // Instantiate all testbench components here
+  // 
   function new();
-    d0 = new;
-    m0 = new;
-    s0 = new;
-    scb_mbx = new();
+    d0 = ??; //driver here
+    m0 = ??; //monitor here
+    s0 = ??; //scoreboard here
+    scb_mbx = new();  //generate the mailbox
   endfunction
 
   // Assign handles and start all components so that
   // they all become active and wait for transactions to be
   // available
   virtual task run();
-    d0.vif = vif;
-    m0.vif = vif;
-    m0.scb_mbx = scb_mbx;
-    s0.scb_mbx = scb_mbx;
+    d0.?? = ??; //connect the driver and monitor interfaces
+    m0.?? = ??;
+    m0.?? = ??; //connect the mailboxes
+    s0.?? = ??;
 
-    fork
-    	s0.run();
-		  d0.run();
-    	m0.run();
+    fork //start the driver, the monitor, and the scoreboard, on separate threads
+    	s0.??; //Call the required methods
+		  d0.??;
+    	m0.??;
     join_any
   endtask
 

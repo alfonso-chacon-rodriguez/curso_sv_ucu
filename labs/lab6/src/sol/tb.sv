@@ -2,37 +2,31 @@
 // can be used to start test components once the DUT comes out of reset. Or
 // the reset can also be a part of the test class in which case all you need
 // to do is start the test's run method.
-
-`include "../packages/verif_env.sv"
-`include "../packages/reg_ctrl_if.sv"
-`include "../rtl/reg_ctrl.sv"
-
 module tb;
   reg clk;
 
   always #10 clk = ~clk;
   reg_if _if (clk);
 
-  reg_ctrl u0 ( .clk  (clk),
-            	  .addr (_if.addr),
-               	.rstn (_if.rstn),
-            	  .sel  (_if.sel),
-               	.wr   (_if.wr),
-            	  .wdata (_if.wdata),
-            	  .rdata (_if.rdata),
-            	  .ready (_if.ready));
-
+  reg_ctrl u0 ( .clk (clk),
+            	.addr (_if.addr),
+               	.rstn(_if.rstn),
+            	.sel  (_if.sel),
+               	.wr (_if.wr),
+            	.wdata (_if.wdata),
+            	.rdata (_if.rdata),
+            	.ready (_if.ready));
 
   initial begin
     new_test t0;
-    t0 = new(); //The test is generated  
-    clk      = 0;
-    _if.rstn = 0;
-    _if.sel  = 0;
-    #20 _if.rstn = 1; //We execute the reset
 
-    
-    t0.e0.vif = _if; //This connects the virtual interface of the environment with the DUT
+    clk <= 0;
+    _if.rstn <= 0;
+    _if.sel <= 0;
+    #20 _if.rstn <= 1;
+
+    t0 = new;
+    t0.e0.vif = _if;
     t0.run();
 
     // Once the main stimulus is over, wait for some time
@@ -45,8 +39,8 @@ module tb;
 
   // Simulator dependent system tasks that can be used to
   // dump simulation waves.
- // initial begin
- //   $dumpvars;
- //   $dumpfile("dump.vcd");
- // end
+  initial begin
+    $dumpvars;
+    $dumpfile("dump.vcd");
+  end
 endmodule

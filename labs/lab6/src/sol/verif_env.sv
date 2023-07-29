@@ -1,7 +1,6 @@
-package verif_env_pkg
 
 //In order to avoid multiple definitions
-`ifndef VERIF_ENV_DEF
+//`ifndef VERIF_ENV_DEF
     `define VERIF_ENV_DEF
 
 class reg_item;
@@ -177,7 +176,7 @@ endclass
 
 // an environment without the generator and hence the stimulus should be
 // written in the test.
-class test;
+class new_test;
   env e0;
   mailbox drv_mbx;
 
@@ -201,17 +200,23 @@ class test;
 
     $display ("T=%0t [Test] Starting stimulus ...", $time);
     item = new;
-    item.randomize() with { addr == 8'haa; wr == 1; };
+    //item.randomize() with { addr == 8'haa; wr == 1; };
+    item.wr = 1;
+    item.addr = 8'haa;
+    item.wdata = $random;
     drv_mbx.put(item);
 
     item = new;
-    item.randomize() with { addr == 8'haa; wr == 0; };
+    //item.randomize() with { addr == 8'haa; wr == 0; };
+    item.wr = 0;
+    item.addr = 8'haa;
+    item.wdata = $random;
     drv_mbx.put(item);
   endtask
 endclass
 
 
 
-endpackage
+//endpackage
 
-`endif
+//`endif

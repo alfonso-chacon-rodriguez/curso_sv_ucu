@@ -1,3 +1,4 @@
 #!/usr/bin/bash
 export DESIGN="$PWD"
-source ~/curso-sv/scripts/questa_sim.sh
+export SCRIPTS=~/git/curso_sv_ucu/scripts
+. $SCRIPTS/questa_sim.sh

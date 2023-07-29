@@ -12,7 +12,7 @@ sim :
 	-wlf ./target/sim_static/counter_ud_tb_opt.wlf -logfile ./target/log/simulation.log
 
 gui :
-	vsim -view ./target/sim_static/tb_opt.wlf
+	vsim -view ./target/sim_static/counter_ud_tb_opt.wlf
 
 all : setup_sim worklib compile optimize sim
 	

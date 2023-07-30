@@ -1,5 +1,5 @@
 # Adding waves
-add wave -recursive -depth 3 *
+add wave -recursive -depth 2 *
 # list all signals in decimal format
 add list -decimal *
 #change radix to symbolic

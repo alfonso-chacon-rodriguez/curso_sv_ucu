@@ -11,7 +11,7 @@ module tb;
   reg clk;
 
   always #10 clk = ~clk;
-  reg_if _if (clk);
+  ?? _if (??); //instantiate here the interface you need to connect to the DUT
 
   reg_ctrl u0 ( .clk  (clk),
             	  .addr (_if.addr),
@@ -24,15 +24,15 @@ module tb;
 
 
   initial begin
-    new_test t0;
-    t0 = new(); //The test is generated  
+    new_test t0; //Instantiate the test environment
+    t0 = new(); //Create the test environment object 
     clk      = 0;
     _if.rstn = 0;
     _if.sel  = 0;
     #20 _if.rstn = 1; //We execute the reset
 
     
-    t0.e0.vif = _if; //This connects the virtual interface of the environment with the DUT
+    ?? = _if; //How would you connect the virtual interface of the environment with the DUT?
     t0.run();
 
     // Once the main stimulus is over, wait for some time

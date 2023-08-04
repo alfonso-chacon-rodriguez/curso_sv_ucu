@@ -1,6 +1,7 @@
 `include "../packages/fifo_ports.sv"
 
-program fifo_top (fifo_ports ports, fifo_monitor_ports mports);
+//program fifo_top (fifo_ports ports, fifo_monitor_ports mports);
+module fifo_top (fifo_ports ports, fifo_monitor_ports mports);
   `include "../packages/fifo_sb.sv"
   `include "../packages/fifo_driver.sv"
 
@@ -10,4 +11,6 @@ program fifo_top (fifo_ports ports, fifo_monitor_ports mports);
     driver.go();
   end
 
-endprogram
+//endprogram
+endmodule
+

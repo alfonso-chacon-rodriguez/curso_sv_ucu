@@ -76,6 +76,7 @@ class fifo_driver;
     end
     repeat (10) @ (posedge ports.clk);
     $write("%dns : Terminating simulations\n",$time);
+    $finish;
   end
   endtask
 

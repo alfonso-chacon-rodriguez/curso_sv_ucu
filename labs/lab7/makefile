@@ -13,7 +13,7 @@ sim :
 	-wlf ./target/sim_static/fifo_tb.wlf -logfile ./target/log/simulation.log
 
 gui :
-	vsim -view ./target/sim_static/fifo_tb_opt.wlf
+	vsim -view ./target/sim_static/fifo_tb.wlf
 
 all : setup_sim worklib compile optimize sim
 	

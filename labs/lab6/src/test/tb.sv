@@ -13,23 +13,15 @@ module tb;
   always #10 clk = ~clk;
   ?? _if (??); //instantiate here the interface you need to connect to the DUT
 
-  reg_ctrl u0 ( .clk  (clk),
-            	  .addr (_if.addr),
-               	.rstn (_if.rstn),
-            	  .sel  (_if.sel),
-               	.wr   (_if.wr),
-            	  .wdata (_if.wdata),
-            	  .rdata (_if.rdata),
-            	  .ready (_if.ready));
+  reg_ctrl u0 (??);
 
 
   initial begin
     new_test t0; //Instantiate the test environment
-    t0 = new(); //Create the test environment object 
-    clk      = 0;
-    _if.rstn = 0;
-    _if.sel  = 0;
-    #20 _if.rstn = 1; //We execute the reset
+    ??; //Create the test environment object 
+        //Assign necessary initial values to DUT input signals and generate reset
+    ??
+    ?? //
 
     
     ?? = _if; //How would you connect the virtual interface of the environment with the DUT?
